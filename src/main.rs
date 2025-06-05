@@ -17,11 +17,11 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
-    Add { title: String },
+    Add { task: String },
     List,
     Done { id: u32 },
     Delete { id: u32 },
-    Edit { id: u32, title: String },
+    Edit { id: u32, task: String },
 }
 
 /// The entry point of the program
@@ -41,8 +41,8 @@ fn main() {
     let mut todo_list = load_todos().unwrap_or_else(|_| TodoList::new());
 
     match cli.commands {
-        Commands::Add { title } => {
-            todo_list.add_task(title);
+        Commands::Add { task } => {
+            todo_list.add_task(task);
             println!("{}", "Task added successfully!".green());
         }
         Commands::List => {
@@ -57,7 +57,7 @@ fn main() {
                 } else {
                     "⬜ Pending".red()
                 };
-                println!("{}: {} ({})", todo.id, todo.title, status);
+                println!("{}: {} ({})", todo.id, todo.task, status);
             }
         }
         Commands::Done { id } => {
@@ -74,8 +74,8 @@ fn main() {
                 println!("{}", "Task not found.".red());
             }
         }
-        Commands::Edit { id, title } => {
-            if todo_list.edit_task(id, title) {
+        Commands::Edit { id, task } => {
+            if todo_list.edit_task(id, task) {
                 println!("{}", "Task edited successfully!".green());
                 save_todos(&todo_list).expect("Failed to save todos");
             } else {
