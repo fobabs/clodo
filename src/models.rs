@@ -5,8 +5,8 @@ use serde::{Deserialize, Serialize};
 pub struct Todo {
     /// The ID of the todo item
     pub id: u32,
-    /// The title of the todo item
-    pub title: String,
+    /// The task of the todo item
+    pub task: String,
     /// Whether the todo item is completed
     pub completed: bool,
 }
@@ -35,10 +35,10 @@ impl TodoList {
     /// The new todo item is assigned an ID of `self.next_id` and is marked as not completed.
     /// The `next_id` is then incremented.
     ///
-    pub fn add_task(&mut self, title: String) {
+    pub fn add_task(&mut self, task: String) {
         self.todos.push(Todo {
             id: self.next_id,
-            title,
+            task,
             completed: false,
         });
         self.next_id += 1
@@ -85,22 +85,22 @@ impl TodoList {
         false
     }
 
-    /// Edits the title of the todo item with the given ID.
+    /// Edits the task of the todo item with the given ID.
     ///
     /// This function searches for a todo item with the specified ID in the list.
-    /// If found, it sets the item's title to the new value.
+    /// If found, it sets the item's task to the new value.
     ///
     /// # Arguments
     ///
     /// * `id` - The ID of the todo item to edit.
-    /// * `title` - The new title of the todo item.
+    /// * `task` - The new task of the todo item.
     ///
     /// # Returns
     ///
     /// `true` if the todo item was found and edited, otherwise `false`.
-    pub fn edit_task(&mut self, id: u32, title: String) -> bool {
+    pub fn edit_task(&mut self, id: u32, task: String) -> bool {
         if let Some(todo) = self.todos.iter_mut().find(|t| t.id == id) {
-            todo.title = title;
+            todo.task = task;
             return true;
         }
         false

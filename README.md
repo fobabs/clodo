@@ -14,21 +14,48 @@ A simple, command-line todo list application built in Rust. Manage your tasks wi
 
 ## Installation
 
+### Option 1: Download Pre-Built Binaries
+
+- Visit the [Releases](https://github.com/fobabs/clodo/releases) page on GitHub.
+- **Linux**
+
+  1. Download the `clodo` binary.
+  2. Make it executable and move to PATH:
+
+  ```bash
+  chmod +x clodo
+  sudo mv clodo /usr/local/bin/
+  ```
+
+- **Windows**
+
+  1. Download the `clodo.exe` binary.
+  2. Move it to a folder (e.g., `C:\Program Files\clodo`).
+  3. Add the folder to your system PATH (via "Edit the system environment variables").
+
+- Test it:
+
+  ```bash
+  clodo --help
+  ```
+
+### Option 2: Build From Source
+
 1. **Prerequisites:**
 
 - Install [Rust](https://www.rust-lang.org/tools/install) (includes `cargo`).
-- Ensure you have a terminal to run commands.
+- Ensure you have terminal to run commands.
 
 2. **Setup:**
 
-- Create a new Rust project:
+- Clone the repository:
 
   ```bash
-  cargo new clodo
+  git clone https://github.com/fobabs/clodo.git
   cd clodo
   ```
 
-- Add the following to `Cargo.toml`:
+- The `Cargo.toml` includes:
 
   ```toml
   [package]
@@ -43,11 +70,9 @@ A simple, command-line todo list application built in Rust. Manage your tasks wi
   clap = { version = "4.0", features = ["derive"] }
   ```
 
-- Copy the `main.rs` code (provided separately) into `src/main.rs`.
-
 3. **Build:**
 
-- Compile the project to create the `clodo` binary:
+- Compile the project:
 
   ```bash
   cargo build --release
@@ -55,24 +80,9 @@ A simple, command-line todo list application built in Rust. Manage your tasks wi
 
 - The executable will be in `target/release/clodo` (or `clodo.exe` on Windows).
 
-4. **Make `clodo` Accessible:**
+4. **Install:**
 
-- **Linux/macOS:**
-  - Copy the binary to a directory in your PATH:
-
-  ```bash
-  sudo cp target/release/clodo /usr/local/bin/
-  ```
-
-- **Windows:**
-  - Copy `target/release/clodo.exe` to a folder (e.g., `C:\Program Files\clodo`).
-  - Add that folder to your system PATH via System Environment Variables.
-
-- Test it:
-
-  ```bash
-  clodo --help
-  ```
+- Follow the same steps as above to move the binary to your PATH.
 
 ## Usage
 
@@ -116,7 +126,7 @@ Run the program with `clodo <command>`. Available commands:
   clodo done 1
   ```
 
-  Output: `Task 1 marked as done!`
+  Output: `Task marked as done!`
 
 - **Edit a Task:**
 
@@ -130,7 +140,7 @@ Run the program with `clodo <command>`. Available commands:
   clodo edit 1 "Write final report draft"
   ```
 
-  Output: `Task 1 updated successfully!`
+  Output: `Task edited successfully!`
 
 - **Delete a Task:**
 
@@ -144,7 +154,7 @@ Run the program with `clodo <command>`. Available commands:
   clodo delete 1
   ```
 
-  Output: `Task 1 deleted successfully!`
+  Output: `Task deleted successfully!`
 
 ## Storage
 
