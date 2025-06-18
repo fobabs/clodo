@@ -8,3 +8,19 @@ clap = { version = "4.0.0", features = ["derive"] }
 colored = "3.0.0"
 serde = { version = "1.0.219", features = ["derive"] }
 serde_json = "1.0.140"
+
+[lib]
+name = "clodo"
+crate-type = ["cdylib"]
+
+[package.metadata.maturin]
+name = "clodo"
+description = "A simple command-line todo manager"
+license = "MIT"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]

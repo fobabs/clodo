@@ -14,75 +14,22 @@ A simple, command-line todo list application built in Rust. Manage your tasks wi
 
 ## Installation
 
-### Option 1: Download Pre-Built Binaries
+1. **Prerequisites:**
 
-- Visit the [Releases](https://github.com/fobabs/clodo/releases) page on GitHub.
-- **Linux**
+- Python 3.8 or higher and `pip` (Python package manager).
+- For source builds (if no wheel is available for your platform), Rust is required: [Install Rust](https://www.rust-lang.org/tools/install).
 
-  1. Download the `clodo` binary.
-  2. Make it executable and move to PATH:
+2. **Install via pip:**
 
   ```bash
-  chmod +x clodo
-  sudo mv clodo /usr/local/bin/
+  pip install clodo
   ```
 
-- **Windows**
-
-  1. Download the `clodo.exe` binary.
-  2. Move it to a folder (e.g., `C:\Program Files\clodo`).
-  3. Add the folder to your system PATH (via "Edit the system environment variables").
-
-- Test it:
+3. **Test it:**
 
   ```bash
   clodo --help
   ```
-
-### Option 2: Build From Source
-
-1. **Prerequisites:**
-
-- Install [Rust](https://www.rust-lang.org/tools/install) (includes `cargo`).
-- Ensure you have terminal to run commands.
-
-2. **Setup:**
-
-- Clone the repository:
-
-  ```bash
-  git clone https://github.com/fobabs/clodo.git
-  cd clodo
-  ```
-
-- The `Cargo.toml` includes:
-
-  ```toml
-  [package]
-  name = "clodo"
-  version = "0.1.0"
-  edition = "2021"
-
-  [dependencies]
-  serde = { version = "1.0", features = ["derive"] }
-  serde_json = "1.0"
-  colored = "2.0"
-  clap = { version = "4.0", features = ["derive"] }
-  ```
-
-3. **Build:**
-
-- Compile the project:
-
-  ```bash
-  cargo build --release
-  ```
-
-- The executable will be in `target/release/clodo` (or `clodo.exe` on Windows).
-
-4. **Install:**
-
-- Follow the same steps as above to move the binary to your PATH.
 
 ## Usage
 
@@ -189,9 +136,43 @@ Run the program with `clodo <command>`. Available commands:
 ## Troubleshooting
 
 - If `todos.json` is missing, the program starts with an empty task list.
-- Ensure Rust and dependencies are installed correctly.
+- Ensure Python 3.8+ and pip are installed.
+- For source builds, ensure Rust is installed.
 - Check for typos in commands or IDs.
-- Ensure `clodo` is in your PATH for global use.
+- If installation fails, try upgrading pip:
+  
+  ```bash
+  pip install --upgrade pip
+  ```
+
+## Development
+
+To contribute or build from source:
+
+1. Clone the repository.
+
+  ```bash
+  git clone https://github.com/fobabs/clodo.git
+  cd clodo
+  ```
+
+2. Install `maturin`:
+
+  ```bash
+  pip install maturin
+  ```
+
+3. Build and install locally:
+
+  ```bash
+  maturin develop
+  ```
+
+4. Run:
+
+  ```bash
+  clodo --help
+  ```
 
 ## Future Improvements
 
