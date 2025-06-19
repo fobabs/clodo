@@ -1,6 +1,6 @@
 [package]
 name = "clodo"
-version = "0.1.0"
+version = "0.1.3"
 edition = "2024"
 
 [dependencies]
@@ -17,10 +17,3 @@ crate-type = ["cdylib"]
 name = "clodo"
 description = "A simple command-line todo manager"
 license = "MIT"
-requires-python = ">=3.8"
-classifiers = [
-    "Programming Language :: Rust",
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-]
