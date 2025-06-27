@@ -16,13 +16,13 @@ A simple, command-line todo list application built in Rust. Manage your tasks wi
 
 1. **Prerequisites:**
 
-- Python 3.8 or higher and `pip` (Python package manager).
-- For source builds (if no wheel is available for your platform), Rust is required: [Install Rust](https://www.rust-lang.org/tools/install).
+- Rust 1.56 or later is required: [Install Rust](https://www.rust-lang.org/tools/install).
+- A terminal that supports ANSI color codes for the best experience.
 
-2. **Install via pip:**
+2. **Install clodo using Rust's package manager, cargo:**
 
   ```bash
-  pip install clodo
+  cargo install clodo
   ```
 
 3. **Test it:**
@@ -127,55 +127,22 @@ Run the program with `clodo <command>`. Available commands:
 - The program uses the `clap` crate for command-line parsing and `colored` for output styling.
 - Data persists between sessions in the `todos.json` file.
 
-## Dependencies
-
-- `serde` and `serde_json`: For JSON serialization and storage.
-- `colored`: For colored terminal output.
-- `clap`: For command-line argument parsing.
-
 ## Troubleshooting
 
 - If `todos.json` is missing, the program starts with an empty task list.
-- Ensure Python 3.8+ and pip are installed.
-- For source builds, ensure Rust is installed.
+- Ensure Rust is installed.
 - Check for typos in commands or IDs.
-- If installation fails, try upgrading pip:
-  
-  ```bash
-  pip install --upgrade pip
-  ```
-
-## Development
-
-To contribute or build from source:
-
-1. Clone the repository.
-
-  ```bash
-  git clone https://github.com/fobabs/clodo.git
-  cd clodo
-  ```
-
-2. Install `maturin`:
-
-  ```bash
-  pip install maturin
-  ```
-
-3. Build and install locally:
-
-  ```bash
-  maturin develop
-  ```
-
-4. Run:
-
-  ```bash
-  clodo --help
-  ```
 
 ## Future Improvements
 
 - Add support for TOML or YAML storage.
 - Include task categories or priorities.
 - Add a command to clear all tasks.
+
+## License
+
+`clodo` is licensed under either the MIT License or the Apache License 2.0, at your option. See the [LICENSE](LICENSE) file for details.
+
+## Contributing
+
+Contributions are welcome! Please fork the repository and submit a pull request. See [CONTRIBUTING.md](CONTRIBUTING.md) file for details.
