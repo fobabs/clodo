@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 /// A todo item
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub struct Todo {
     /// The ID of the todo item
     pub id: u32,
@@ -12,7 +12,7 @@ pub struct Todo {
 }
 
 /// A collection of todo items
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub struct TodoList {
     /// A vector of todo items
     pub todos: Vec<Todo>,
@@ -29,19 +29,20 @@ impl TodoList {
         }
     }
 
-
     /// Adds a new todo item to the list.
     ///
     /// The new todo item is assigned an ID of `self.next_id` and is marked as not completed.
     /// The `next_id` is then incremented.
     ///
-    pub fn add_task(&mut self, task: String) {
+    pub fn add_task(&mut self, task: String) -> u32 {
+        let id = self.next_id;
         self.todos.push(Todo {
             id: self.next_id,
             task,
             completed: false,
         });
-        self.next_id += 1
+        self.next_id += 1;
+        id
     }
 
     /// Marks the todo item with the given ID as completed.
@@ -56,7 +57,6 @@ impl TodoList {
     /// # Returns
     ///
     /// `true` if the todo item was found and marked as completed, otherwise `false`.
-
     pub fn mark_done(&mut self, id: u32) -> bool {
         if let Some(todo) = self.todos.iter_mut().find(|t| t.id == id) {
             todo.completed = true;
@@ -104,5 +104,55 @@ impl TodoList {
             return true;
         }
         false
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_new_todolist() {
+        let todo_list = TodoList::new();
+        assert_eq!(todo_list.todos.len(), 0);
+        assert_eq!(todo_list.next_id, 1);
+    }
+
+    #[test]
+    fn test_add_task() {
+        let mut todo_list = TodoList::new();
+        let id = todo_list.add_task("Test task".to_string());
+        assert_eq!(id, 1);
+        assert_eq!(todo_list.todos.len(), 1);
+        assert_eq!(todo_list.todos[0].task, "Test task");
+        assert_eq!(todo_list.todos[0].completed, false);
+        assert_eq!(todo_list.next_id, 2);
+    }
+
+    #[test]
+    fn test_mark_done() {
+        let mut todo_list = TodoList::new();
+        let id = todo_list.add_task("Test task".to_string());
+        assert!(todo_list.mark_done(id));
+        assert_eq!(todo_list.todos[0].completed, true);
+        assert_eq!(todo_list.mark_done(999), false); // Non-existent ID
+    }
+
+    #[test]
+    fn test_delete_task() {
+        let mut todo_list = TodoList::new();
+        let id = todo_list.add_task("Test task".to_string());
+        assert!(todo_list.delete_task(id));
+        assert_eq!(todo_list.todos.len(), 0);
+        assert_eq!(todo_list.delete_task(999), false); // Non-existent ID
+    }
+
+    #[test]
+    fn test_edit_task() {
+        let mut todo_list = TodoList::new();
+        let id = todo_list.add_task("Old task".to_string());
+        assert!(todo_list.edit_task(id, "New task".to_string()));
+        assert_eq!(todo_list.todos[0].task, "New task");
+        assert_eq!(todo_list.edit_task(999, "Invalid".to_string()), false); // Non-existent ID
     }
 }
