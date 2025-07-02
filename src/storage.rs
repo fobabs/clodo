@@ -76,7 +76,8 @@ mod tests {
 
         let path = Path::new("todos.json");
         let mut file = File::create(path).expect("Failed to create todos.json");
-        file.write_all(b"invalid json").expect("Failed to write invalid JSON");
+        file.write_all(b"invalid json")
+            .expect("Failed to write invalid JSON");
 
         let result = load_todos();
         assert!(result.is_err());
