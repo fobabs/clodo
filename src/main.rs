@@ -7,7 +7,7 @@ use models::TodoList;
 use storage::{load_todos, save_todos};
 
 #[derive(Parser)]
-#[command(name = "clodo", version = "0.1.0", about = "A simple todo list manager", long_about = None)]
+#[command(name = "clodo", version = "0.1.2", about = "A simple todo list manager", long_about = None)]
 /// Command line interface for the todo list manager
 struct Cli {
     #[command(subcommand)]
