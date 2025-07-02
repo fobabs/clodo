@@ -1,4 +1,4 @@
-use crate::models::{Todo, TodoList};
+use crate::models::TodoList;
 use std::{
     fs::File,
     io::{Read, Write},
@@ -38,22 +38,27 @@ pub fn save_todos(todo_list: &TodoList) -> Result<(), Box<dyn std::error::Error>
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::models::Todo;
     use tempfile::TempDir;
 
     #[test]
     fn test_load_empty_file() {
-        let temp_dir = TempDir::new().expect("Failed to create temp dir");
-        std::env::set_current_dir(temp_dir.path()).expect("Failed to set current dir");
+        let temp_dir = TempDir::new().unwrap();
+        let original_dir = std::env::current_dir().unwrap();
+        std::env::set_current_dir(temp_dir.path()).unwrap();
 
-        let todo_list = load_todos().expect("Failed to load todos");
+        let todo_list = load_todos().unwrap();
         assert_eq!(todo_list.todos.len(), 0);
         assert_eq!(todo_list.next_id, 1);
+
+        std::env::set_current_dir(original_dir).unwrap();
     }
 
     #[test]
     fn test_save_and_load_todos() {
-        let temp_dir = TempDir::new().expect("Failed to create temp dir");
-        std::env::set_current_dir(temp_dir.path()).expect("Failed to set current dir");
+        let temp_dir = TempDir::new().unwrap();
+        let original_dir = std::env::current_dir().unwrap();
+        std::env::set_current_dir(temp_dir.path()).unwrap();
 
         let todo_list = TodoList {
             todos: vec![Todo {
@@ -63,23 +68,27 @@ mod tests {
             }],
             next_id: 2,
         };
-        save_todos(&todo_list).expect("Failed to save todos");
+        save_todos(&todo_list).unwrap();
 
-        let loaded = load_todos().expect("Failed to load todos");
+        let loaded = load_todos().unwrap();
         assert_eq!(loaded, todo_list);
+
+        std::env::set_current_dir(original_dir).unwrap();
     }
 
     #[test]
     fn test_load_invalid_json() {
-        let temp_dir = TempDir::new().expect("Failed to create temp dir");
-        std::env::set_current_dir(temp_dir.path()).expect("Failed to set current dir");
+        let temp_dir = TempDir::new().unwrap();
+        let original_dir = std::env::current_dir().unwrap();
+        std::env::set_current_dir(temp_dir.path()).unwrap();
 
         let path = Path::new("todos.json");
-        let mut file = File::create(path).expect("Failed to create todos.json");
-        file.write_all(b"invalid json")
-            .expect("Failed to write invalid JSON");
+        let mut file = File::create(path).unwrap();
+        file.write_all(b"invalid json").unwrap();
 
         let result = load_todos();
         assert!(result.is_err());
+
+        std::env::set_current_dir(original_dir).unwrap();
     }
 }
